@@ -106,12 +106,25 @@ def get_random_quiz_questions(count=3):
         
         quiz_data = []
         for q in selected:
+            # Преобразуем букву столбца в текст правильного ответа
+            correct_column = q[4].lower().strip()  # "b", "c" или "d"
+            
+            # Определяем индекс правильного ответа
+            if correct_column == 'b':
+                correct_answer = q[1]
+            elif correct_column == 'c':
+                correct_answer = q[2]
+            elif correct_column == 'd':
+                correct_answer = q[3]
+            else:
+                correct_answer = q[1]  # По умолчанию первый вариант
+            
             quiz_data.append({
                 'question': q[0],
                 'option1': q[1],
                 'option2': q[2],
                 'option3': q[3],
-                'correct': q[4]
+                'correct': correct_answer  # Теперь это ТЕКСТ правильного ответа
             })
         return quiz_data
     except Exception as e:
